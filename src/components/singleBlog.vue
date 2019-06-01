@@ -1,7 +1,11 @@
 <template>
   <div id="single-blog">
     <h1>{{ blog.title }}</h1>
-    <article>{{ blog.body }}</article>
+    <article>{{ blog.content }}</article>
+    <p>Author : {{blog.author}}</p>
+    <ul>
+        <li v-for="category in blog.categories" v-bind:key="category.id">{{category}}</li>
+    </ul>
   </div>
 </template>
 
@@ -14,9 +18,8 @@ export default{
     }
   },
   created(){
-      this.$http.get('https://jsonplaceholder.typicode.com/posts/' + this.id).then(data => {
+      this.$http.get('https://vueblogs-b974e.firebaseio.com/posts/' + this.id + '.json').then(data => {
           this.blog = data.body;
-          console.log(data);
       })
   }
 }
